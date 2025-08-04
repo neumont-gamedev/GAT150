@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3_image/SDL_image.h>
 #include <iostream>
 
 namespace viper {
@@ -22,11 +23,14 @@ namespace viper {
 		void DrawLine(float x1, float y1, float x2, float y2);
 		void DrawPoint(float x, float y);
 
+		void DrawTexture(class Texture* texture, float x, float y);
+
 		int GetWidth() const { return m_width; }
 		int GetHeight() const { return m_height; }
 
 	private:
 		friend class Text;
+		friend class Texture;
 
 		int m_width{ 0 };
 		int m_height{ 0 };

@@ -6,6 +6,7 @@
 #include "Core/Time.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
+#include "Renderer/Texture.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Actor.h"
@@ -38,6 +39,9 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
     viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 
+    std::shared_ptr<viper::Texture> texture = std::make_shared<viper::Texture>();
+    texture->Load("beast.png", viper::GetEngine().GetRenderer());
+
     // create stars
     std::vector<viper::vec2> stars;
     for (int i = 0; i < 100; i++) {
@@ -66,6 +70,7 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().GetRenderer().Clear();
 
         game->Draw(viper::GetEngine().GetRenderer());
+        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30);
 
         viper::GetEngine().GetRenderer().Present();
     }
