@@ -6,6 +6,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/ParticleSystem.h"
 #include "Input/InputSystem.h"
+#include "Resources/ResourceManager.h"
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -17,16 +18,10 @@ bool SpaceGame::Initialize()
 {
     m_scene = std::make_unique<viper::Scene>(this);
 
-    m_titleFont = std::make_shared<viper::Font>();
-    m_titleFont->Load("arcadeclassic.ttf", 128);
+    m_titleText = std::make_unique<viper::Text>(viper::ResourceManager::Instance().Get<viper::Font>("arcadeclassic.ttf", 128.0f));
+    m_scoreText = std::make_unique<viper::Text>(viper::ResourceManager::Instance().Get<viper::Font>("arcadeclassic.ttf", 48.0f));
+    m_livesText = std::make_unique<viper::Text>(viper::ResourceManager::Instance().Get<viper::Font>("arcadeclassic.ttf", 48.0f));
 
-    m_uiFont = std::make_shared<viper::Font>();
-    m_uiFont->Load("arcadeclassic.ttf", 48);
-
-    m_titleText = std::make_unique<viper::Text>(m_titleFont);
-    m_scoreText = std::make_unique<viper::Text>(m_uiFont);
-    m_livesText = std::make_unique<viper::Text>(m_uiFont);
-        
     return true;
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/StringHelper.h"
+#include "Core/StringHelper.h"
 #include <string>
 #include <vector>
 #include <list>

@@ -12,6 +12,7 @@
 #include "Framework/Actor.h"
 #include "Framework/Scene.h"
 #include "Core/File.h"
+#include "Resources/ResourceManager.h"
 #include "Engine.h"
 
 #include "Game/Player.h"
@@ -39,8 +40,7 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
     viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 
-    std::shared_ptr<viper::Texture> texture = std::make_shared<viper::Texture>();
-    texture->Load("beast.png", viper::GetEngine().GetRenderer());
+    auto texture = viper::ResourceManager::Instance().Get<viper::Texture>("beast.png", viper::GetEngine().GetRenderer());
 
     // create stars
     std::vector<viper::vec2> stars;
