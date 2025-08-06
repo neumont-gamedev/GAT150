@@ -18,9 +18,9 @@ bool SpaceGame::Initialize()
 {
     m_scene = std::make_unique<viper::Scene>(this);
 
-    m_titleText = std::make_unique<viper::Text>(viper::ResourceManager::Instance().Get<viper::Font>("arcadeclassic.ttf", 128.0f));
-    m_scoreText = std::make_unique<viper::Text>(viper::ResourceManager::Instance().Get<viper::Font>("arcadeclassic.ttf", 48.0f));
-    m_livesText = std::make_unique<viper::Text>(viper::ResourceManager::Instance().Get<viper::Font>("arcadeclassic.ttf", 48.0f));
+    m_titleText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("title_font", "arcadeclassic.ttf", 128.0f));
+    m_scoreText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
+    m_livesText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
 
     return true;
 }
@@ -50,9 +50,9 @@ void SpaceGame::Update(float dt)
         m_scene->RemoveAllActors();
 
         // create player
-        std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0.0f, 0.4f, 1.0f });
-        viper::Transform transform{ viper::vec2{ viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f }, 0, 5 };
-        auto player = std::make_unique<Player>(transform, model);
+        //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0.0f, 0.4f, 1.0f });
+        viper::Transform transform{ viper::vec2{ viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f }, 0, 2.0f };
+        auto player = std::make_unique<Player>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
         player->speed = 1500.0f;
         player->rotationRate = 180.0f;
         player->damping = 1.5f;
@@ -133,13 +133,13 @@ void SpaceGame::OnPlayerDeath() {
 void SpaceGame::SpawnEnemy() {
     Player* player = m_scene->GetActorByName<Player>("player");
     if (player) {
-        std::shared_ptr<viper::Model> enemyModel = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 1, 0, 0 });
+        //std::shared_ptr<viper::Model> enemyModel = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 1, 0, 0 });
 
         // spawn at random position away from player
         viper::vec2 position = player->transform.position + viper::random::onUnitCircle() * viper::random::getReal(200.0f, 500.0f);
-        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 10};
+        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f };
 
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
         enemy->damping = 0.5f;
         enemy->fireTime = 3;
         enemy->fireTimer = 5;

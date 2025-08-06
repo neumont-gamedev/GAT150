@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
     viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 
-    auto texture = viper::ResourceManager::Instance().Get<viper::Texture>("beast.png", viper::GetEngine().GetRenderer());
+    auto texture = viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer());
 
     // create stars
     std::vector<viper::vec2> stars;
@@ -50,6 +50,7 @@ int main(int argc, char* argv[]) {
 
     SDL_Event e;
     bool quit = false;
+    float rotate = 0;
 
     // MAIN LOOP
     while (!quit) {
@@ -70,7 +71,8 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().GetRenderer().Clear();
 
         game->Draw(viper::GetEngine().GetRenderer());
-        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30);
+        rotate += 90 * viper::GetEngine().GetTime().GetDeltaTime();
+        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 0, 0, rotate, 1);
 
         viper::GetEngine().GetRenderer().Present();
     }
