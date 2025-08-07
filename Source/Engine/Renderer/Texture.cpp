@@ -1,23 +1,21 @@
 #include "Texture.h"
 #include "Renderer.h"
 #include "Math/Vector2.h"
+#include "Core/Logger.h"
 #include <SDL3_image/SDL_image.h>
 #include <iostream>
 
 namespace viper {
-    Texture::~Texture()
-    {
+    Texture::~Texture() {
         // if texture exists, destroy texture
         if (m_texture) SDL_DestroyTexture(m_texture);
     }
 
-    bool Texture::Load(const std::string& filename, Renderer& renderer)
-    {
+    bool Texture::Load(const std::string& filename, Renderer& renderer) {
         // load image onto surface
         SDL_Surface* surface = IMG_Load(filename.c_str());
-        if (!surface)
-        {
-            std::cerr << "Could not load image: " << filename << std::endl;
+        if (!surface) {
+            Logger::Error("Could not load image: {}", filename);
             return false;
         }
 
@@ -25,17 +23,15 @@ namespace viper {
         m_texture = SDL_CreateTextureFromSurface(renderer.m_renderer, surface);
         // once texture is created, surface can be freed up
         SDL_DestroySurface(surface);
-        if (!m_texture)
-        {
-            std::cerr << "Could not create texture: " << filename << std::endl;
+        if (!m_texture) {
+            Logger::Error("Could not create texture: {}", filename);
             return false;
         }
 
         return true;
     }
 
-    vec2 Texture::GetSize()
-    {
+    vec2 Texture::GetSize() {
         // query the texture for the size
         float w, h;
         SDL_GetTextureSize(m_texture, &w, &h);

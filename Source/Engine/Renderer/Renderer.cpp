@@ -1,17 +1,18 @@
 #include "Renderer.h"
 #include "Texture.h"
-#include "../Math/Vector2.h"
+#include "Math/Vector2.h"
+#include "Core/Logger.h"
 
 namespace viper {
     bool Renderer::Initialize() {
         if (!SDL_Init(SDL_INIT_VIDEO)) {
-            std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+            Logger::Error("SDL_Init Error: {}", SDL_GetError());
             return false;
         }
 
         if (!TTF_Init())
         {
-            std::cerr << "TTF_Init Error: " << SDL_GetError() << std::endl;
+            Logger::Error("TTF_Init Error: {}", SDL_GetError());
             return false;
         }
 
@@ -32,14 +33,14 @@ namespace viper {
 
         m_window = SDL_CreateWindow(name.c_str(), width, height, 0);
         if (m_window == nullptr) {
-            std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+            Logger::Error("SDL_CreateWindow Error: {}", SDL_GetError());
             SDL_Quit();
             return false;
         }
 
         m_renderer = SDL_CreateRenderer(m_window, NULL);
         if (m_renderer == nullptr) {
-            std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+            Logger::Error("SDL_CreateRenderer Error: {}", SDL_GetError());
             SDL_DestroyWindow(m_window);
             SDL_Quit();
             return false;

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/StringHelper.h"
 #include "Core/Singleton.h"
+#include "Core/Logger.h"
 #include "Resource.h"
 #include <string>
 #include <map>
@@ -24,14 +25,12 @@ namespace viper {
 	};
 
 	template<typename T, typename ... Args>
-	inline res_t<T> ResourceManager::Get(const std::string& name, Args&& ... args)
-	{
+	inline res_t<T> ResourceManager::Get(const std::string& name, Args&& ... args) {
 		return GetWithID<T>(name, name, std::forward<Args>(args)...);
 	}
 
 	template<typename T, typename ...Args>
-	inline res_t<T> ResourceManager::GetWithID(const std::string& id, const std::string& name, Args && ...args)
-	{
+	inline res_t<T> ResourceManager::GetWithID(const std::string& id, const std::string& name, Args && ...args)	{
 		std::string key = tolower(id);
 
 		auto iter = m_resources.find(key);
@@ -43,7 +42,7 @@ namespace viper {
 			auto resource = std::dynamic_pointer_cast<T>(base);
 			// check if cast was successful
 			if (resource == nullptr) {
-				std::cerr << "Resource type mismatch: " << key << std::endl;
+				Logger::Error("Resource type mismatch: {}", key);
 				return res_t<T>();
 			}
 
@@ -54,7 +53,7 @@ namespace viper {
 		// load resource
 		res_t<T> resource = std::make_shared<T>();
 		if (resource->Load(name, std::forward<Args>(args)...) == false) {
-			std::cerr << "Could not load resource: " << name << std::endl;
+			Logger::Error("Could not load resource: {}", name);
 			return res_t<T>();
 		}
 
