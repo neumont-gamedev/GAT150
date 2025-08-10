@@ -41,7 +41,7 @@ namespace viper {
 				color = "\033[32m"; // Green
 				break;
 			case LogLevel::Warning: 
-				prefix = "[WARN] ";
+				prefix = "[WARNING] ";
 				color = "\033[33m"; // Yellow
 				break;
 			case LogLevel::Error:   
@@ -58,6 +58,7 @@ namespace viper {
 				break;
 			}
 
+			
 			const std::string reset = "\033[0m";
 			std::string output = color + prefix + message + reset + "\n";
 

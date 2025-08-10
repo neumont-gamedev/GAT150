@@ -24,6 +24,6 @@ namespace viper {
 
 	float Actor::GetRadius()
 	{
-		return (m_texture) ? (m_texture->GetSize().Length() * 0.5f) * transform.scale * 0.9f : 0;
+		return (m_texture) ? (m_texture->GetSize().Length() * 0.5f) * transform.scale * 0.5f : 0;
 	}
 }

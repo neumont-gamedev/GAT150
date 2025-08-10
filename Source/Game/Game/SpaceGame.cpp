@@ -139,7 +139,7 @@ void SpaceGame::SpawnEnemy() {
         viper::vec2 position = player->transform.position + viper::random::onUnitCircle() * viper::random::getReal(200.0f, 500.0f);
         viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f };
 
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, viper::Resources().Get<viper::Texture>("textures/purple_01.png", viper::GetEngine().GetRenderer()));
         enemy->damping = 0.5f;
         enemy->fireTime = 3;
         enemy->fireTimer = 5;

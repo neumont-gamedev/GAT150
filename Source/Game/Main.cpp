@@ -23,10 +23,10 @@
 #include <memory>
 
 int main(int argc, char* argv[]) {
-
     viper::file::SetCurrentDirectory("Assets");
     
     // initialize engine
+    viper::Logger::Warning("initialize engine...");
     viper::GetEngine().Initialize();
 
     // initialize game
@@ -40,17 +40,8 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
     viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 
-    auto texture = viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer());
-
-    // create stars
-    std::vector<viper::vec2> stars;
-    for (int i = 0; i < 100; i++) {
-        stars.push_back(viper::vec2{ viper::random::getReal() * 1280 , viper::random::getReal() * 1024 });
-    }
-
     SDL_Event e;
     bool quit = false;
-    float rotate = 0;
 
     // MAIN LOOP
     while (!quit) {
@@ -71,8 +62,6 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().GetRenderer().Clear();
 
         game->Draw(viper::GetEngine().GetRenderer());
-        rotate += 90 * viper::GetEngine().GetTime().GetDeltaTime();
-        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 0, 0, rotate, 1);
 
         viper::GetEngine().GetRenderer().Present();
     }
@@ -83,18 +72,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
-/*
-    viper::vec2 speedz{ -140.0f, 0.0f };
-    float length = speedz.Length();
-
-    for (auto& star : stars) {
-        star += speedz * viper::GetEngine().GetTime().GetDeltaTime();
-
-        if (star[0] > 1280) star[0] = 0;
-        if (star[0] < 0) star[0] = 1280;
-
-        viper::GetEngine().GetRenderer().SetColor((uint8_t)viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256));
-        viper::GetEngine().GetRenderer().DrawPoint(star.x, star.y);
-    }
-*/
