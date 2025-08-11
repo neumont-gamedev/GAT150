@@ -1,8 +1,4 @@
 #include "AudioSystem.h"
-#include "Core/Logger.h"
- #include "Core/StringHelper.h"
-#include <fmod_errors.h>
-#include <iostream>
 
 namespace viper {
 	/// <summary>

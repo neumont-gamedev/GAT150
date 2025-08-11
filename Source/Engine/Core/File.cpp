@@ -1,7 +1,4 @@
 #include "File.h"
-#include "Logger.h"
-#include <iostream>
-#include <fstream>
 
 namespace viper::file {
     /// <summary>

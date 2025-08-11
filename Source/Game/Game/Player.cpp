@@ -1,16 +1,7 @@
 #include "Player.h"
 #include "Rocket.h"
-#include "Engine.h"
 #include "SpaceGame.h"
 #include "GameData.h"
-#include "Math/Vector3.h"
-#include "Core/Random.h"
-#include "Framework/Scene.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/ParticleSystem.h"
-#include "Renderer/Model.h"
-#include "Input/InputSystem.h"
-#include "Audio/AudioSystem.h"
 
 void Player::Update(float dt)
 {
@@ -49,11 +40,16 @@ void Player::Update(float dt)
 
         // spawn rocket at player position and rotation
         viper::Transform transform{ this->transform.position, this->transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/missile-2.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform);
         rocket->speed = 1500.0f;
         rocket->lifespan = 1.5f;
         rocket->name = "rocket";
         rocket->tag = "player";
+
+        // components
+        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+        spriteRenderer->textureName = "textures/missile-2.png";
+        rocket->AddComponent(std::move(spriteRenderer));
 
         scene->AddActor(std::move(rocket));
     }

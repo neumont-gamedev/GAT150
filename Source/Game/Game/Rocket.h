@@ -7,10 +7,9 @@ public:
 
 public:
 	Rocket() = default;
-	Rocket(const viper::Transform& transform, viper::res_t<viper::Texture> texture) :
-		Actor{ transform, texture }
-	{
-	}
+	Rocket(const viper::Transform& transform) :
+		Actor{ transform }
+	{}
 
 	void Update(float dt) override;
 

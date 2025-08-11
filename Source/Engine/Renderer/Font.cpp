@@ -1,7 +1,4 @@
 #include "Font.h"
-#include "Core/Logger.h"
-#include <SDL3_ttf/SDL_ttf.h>
-#include <iostream>
 
 namespace viper {
 	Font::~Font() {

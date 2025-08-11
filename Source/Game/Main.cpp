@@ -1,26 +1,4 @@
-#include "Math/Math.h"
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include "Math/Transform.h"
-#include "Core/Random.h"
-#include "Core/Time.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Model.h"
-#include "Renderer/Texture.h"
-#include "Input/InputSystem.h"
-#include "Audio/AudioSystem.h"
-#include "Framework/Actor.h"
-#include "Framework/Scene.h"
-#include "Core/File.h"
-#include "Resources/ResourceManager.h"
-#include "Engine.h"
-
-#include "Game/Player.h"
 #include "Game/SpaceGame.h"
-
-#include <iostream>
-#include <vector>
-#include <memory>
 
 int main(int argc, char* argv[]) {
     viper::file::SetCurrentDirectory("Assets");

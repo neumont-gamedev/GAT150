@@ -1,7 +1,5 @@
 #include "Renderer.h"
 #include "Texture.h"
-#include "Math/Vector2.h"
-#include "Core/Logger.h"
 
 namespace viper {
     bool Renderer::Initialize() {

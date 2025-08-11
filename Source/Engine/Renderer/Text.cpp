@@ -1,9 +1,6 @@
 #include "Text.h"
 #include "Font.h"
 #include "Renderer.h"
-#include "Math/Vector3.h"
-#include "Core/Logger.h"
-#include <SDL3/SDL.h>
 
 namespace viper {
 	/// <summary>
