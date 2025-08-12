@@ -26,7 +26,12 @@ void Player::Update(float dt)
 
     viper::vec2 direction{ 1, 0 };
     viper::vec2 force = direction.Rotate(viper::math::degToRad(transform.rotation)) * thrust * speed;
-    velocity += force * dt;
+    //velocity += force * dt;
+    auto* rb = GetComponent<viper::RigidBody>();
+    if (rb) {
+        rb->velocity += force * dt;
+    }
+
 
     transform.position.x = viper::math::wrap(transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
     transform.position.y = viper::math::wrap(transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetHeight());
@@ -36,7 +41,8 @@ void Player::Update(float dt)
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
         fireTimer = fireTime;
 
-        viper::GetEngine().GetAudio().PlaySound("clap");
+        //viper::GetEngine().GetAudio().PlaySound("clap");
+        viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("bass.wav", viper::GetEngine().GetAudio()).get());
 
         // spawn rocket at player position and rotation
         viper::Transform transform{ this->transform.position, this->transform.rotation, 2.0f };
@@ -50,6 +56,13 @@ void Player::Update(float dt)
         auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
         spriteRenderer->textureName = "textures/missile-2.png";
         rocket->AddComponent(std::move(spriteRenderer));
+
+        auto rb = std::make_unique<viper::RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<viper::CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
 
         scene->AddActor(std::move(rocket));
     }
