@@ -1,3 +1,4 @@
+#include "../GamePCH.h"
 #include "Player.h"
 #include "Rocket.h"
 #include "SpaceGame.h"
@@ -42,7 +43,10 @@ void Player::Update(float dt)
         fireTimer = fireTime;
 
         //viper::GetEngine().GetAudio().PlaySound("clap");
-        viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("bass.wav", viper::GetEngine().GetAudio()).get());
+        auto sound = viper::Resources().Get<viper::AudioClip>("bass.wav", viper::GetEngine().GetAudio()).get();
+        if (sound) {
+            viper::GetEngine().GetAudio().PlaySound(*sound);
+        }
 
         // spawn rocket at player position and rotation
         viper::Transform transform{ this->transform.position, this->transform.rotation, 2.0f };
