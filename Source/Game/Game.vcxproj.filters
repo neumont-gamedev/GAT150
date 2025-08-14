@@ -56,8 +56,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\Build\Assets\Meshes\enemy.txt">
+    <None Include="..\..\Build\Assets\Meshes\enemy.msh">
       <Filter>Assets</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>

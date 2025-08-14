@@ -7,6 +7,7 @@ namespace viper {
 		std::string buffer;
 		if (!file::ReadTextFile(filename, buffer)) {
 			Logger::Error("Could not read file: {}", filename);
+			return false;
 		}
 
 		std::stringstream stream(buffer);
@@ -18,6 +19,11 @@ namespace viper {
 		vec2 point;
 		while (stream >> point) {
 			m_points.push_back(point);
+		}
+
+		if (!stream.eof()) {
+			Logger::Error("Could not parse file: {}", filename);
+			return false;
 		}
 
 		return true;

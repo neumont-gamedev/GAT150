@@ -160,8 +160,6 @@ namespace viper {
 		return stream;
 	}
 
-
-
 	using ivec2 = Vector2<int>;
 	using vec2 = Vector2<float>;
 }

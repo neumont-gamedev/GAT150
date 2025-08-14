@@ -48,8 +48,6 @@ int main(int argc, char* argv[]) {
 
     std::cout << v2 << std::endl;
 
-    return 0;
-
     // initialize engine
     viper::Logger::Warning("initialize engine...");
     viper::GetEngine().Initialize();

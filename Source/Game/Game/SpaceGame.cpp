@@ -139,7 +139,7 @@ void SpaceGame::SpawnEnemy() {
 
         // spawn at random position away from player
         viper::vec2 position = player->transform.position + viper::random::onUnitCircle() * viper::random::getReal(200.0f, 500.0f);
-        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f };
+        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 10.0f };
 
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->fireTime = 3;
@@ -148,9 +148,12 @@ void SpaceGame::SpawnEnemy() {
         enemy->tag = "enemy";
 
         // components
-        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/purple_01.png";
-        enemy->AddComponent(std::move(spriteRenderer));
+        //auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+        //spriteRenderer->textureName = "textures/purple_01.png";
+        //enemy->AddComponent(std::move(spriteRenderer));
+        auto meshRenderer = std::make_unique<viper::MeshRenderer>();
+        meshRenderer->meshName = "meshes/enemy.msh";
+        enemy->AddComponent(std::move(meshRenderer));
 
         auto rb = std::make_unique<viper::RigidBody>();
         rb->damping = 0.5f;

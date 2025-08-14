@@ -102,8 +102,6 @@ namespace viper {
 		return stream;
 	}
 
-
-
 	using ivec3 = Vector3<int>;
 	using vec3 = Vector3<float>;
 }
