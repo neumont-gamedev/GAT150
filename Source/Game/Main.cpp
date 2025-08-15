@@ -4,6 +4,61 @@ int main(int argc, char* argv[]) {
     viper::file::SetCurrentDirectory("Assets");
     viper::Logger::Info("current directory {}", viper::file::GetCurrentDirectory());
 
+    // !! this code is not neccessary, it just shows the contents of the file !!
+    std::string buffer;
+    viper::file::ReadTextFile("json.txt", buffer);
+    // show the contents of the json file
+    std::cout << buffer << std::endl;
+
+    // create json document from the json file contents
+    rapidjson::Document document;
+    viper::json::Load("json.txt", document);
+
+    /*
+    // read the age data from the json
+    int age;
+    viper::json::Read(document, "age", age);
+    // show the age data
+    std::cout << age << std::endl;
+
+    bool isAwake;
+    viper::json::Read(document, "isAwake", isAwake);
+    // show the isAwake data
+    //std::cout << isAwake << std::endl;
+
+    viper::vec2 position;
+    JSON_READ(document, position);
+    //viper::json::Read(document, "position", position);
+    std::cout << position.x << " " << position.y << std::endl;
+    */
+
+    std::string name;
+    int age;
+    float speed;
+    bool isAwake;
+    viper::vec2 position;
+    viper::vec3 color;
+
+    //viper::json::Read(document, "name", name);
+    //viper::json::Read(document, "age", age);
+    //viper::json::Read(document, "speed", speed);
+    //viper::json::Read(document, "isAwake", isAwake);
+    //viper::json::Read(document, "position", position);
+    //viper::json::Read(document, "color", color);
+
+    JSON_READ(document, name);
+    JSON_READ(document, age);
+    JSON_READ(document, speed);
+    JSON_READ(document, isAwake);
+    JSON_READ(document, position);
+    JSON_READ(document, color);
+
+    // show the data
+    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
+    std::cout << position.x << " " << position.y << std::endl;
+    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
+
+    /*
     // command-line arguments
     std::cout << argc << std::endl;
     for (int i = 0; i < argc; i++) {
@@ -47,6 +102,9 @@ int main(int argc, char* argv[]) {
     sstream >> v2;
 
     std::cout << v2 << std::endl;
+    */
+
+    return 0;
 
     // initialize engine
     viper::Logger::Warning("initialize engine...");
