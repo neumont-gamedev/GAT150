@@ -4,6 +4,8 @@
 #include "SpaceGame.h"
 #include "GameData.h"
 
+FACTORY_REGISTER(Player)
+
 void Player::Update(float dt)
 {
     viper::Particle particle;
