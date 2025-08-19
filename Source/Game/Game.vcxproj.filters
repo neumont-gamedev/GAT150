@@ -59,5 +59,8 @@
     <None Include="..\..\Build\Assets\Meshes\enemy.msh">
       <Filter>Assets</Filter>
     </None>
+    <None Include="..\..\Build\Assets\scene.json">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
 </Project>

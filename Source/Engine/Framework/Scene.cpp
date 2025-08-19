@@ -61,14 +61,21 @@ namespace viper {
 	/// Adds an actor to the scene by transferring ownership of the actor.
 	/// </summary>
 	/// <param name="actor">A unique pointer to the actor to be added. Ownership of the actor is transferred to the scene.</param>
-	void Scene::AddActor(std::unique_ptr<Actor> actor)
-	{
+	void Scene::AddActor(std::unique_ptr<Actor> actor) {
 		actor->scene = this;
 		m_actors.push_back(std::move(actor));
 	}
 
-	void Scene::RemoveAllActors()
-	{
+	void Scene::RemoveAllActors() {
 		m_actors.clear();
+	}
+
+	void Scene::Read(const json::value_t& value) {
+		for (auto& actorValue : value["actors"].GetArray()) {
+			auto actor = Factory::Instance().Create<Actor>("Actor");
+			actor->Read(actorValue);
+
+			AddActor(std::move(actor));
+		}
 	}
 }

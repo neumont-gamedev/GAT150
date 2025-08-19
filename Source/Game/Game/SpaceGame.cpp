@@ -1,3 +1,4 @@
+#include "../GamePCH.h"
 #include "SpaceGame.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -6,6 +7,10 @@
 bool SpaceGame::Initialize()
 {
     m_scene = std::make_unique<viper::Scene>(this);
+
+    viper::json::document_t document;
+    viper::json::Load("scene.json", document);
+    m_scene->Read(document);
 
     m_titleText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("title_font", "arcadeclassic.ttf", 128.0f));
     m_scoreText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_font", "arcadeclassic.ttf", 48.0f));
@@ -38,6 +43,7 @@ void SpaceGame::Update(float dt)
     {
         m_scene->RemoveAllActors();
 
+        /*
         // create player
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0.0f, 0.4f, 1.0f });
         viper::Transform transform{ viper::vec2{ viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f }, 0, 2.0f };
@@ -61,6 +67,7 @@ void SpaceGame::Update(float dt)
         player->AddComponent(std::move(collider));
 
         m_scene->AddActor(std::move(player));
+        */
 
         m_gameState = GameState::Game;
     }
@@ -133,6 +140,7 @@ void SpaceGame::OnPlayerDeath() {
 }
 
 void SpaceGame::SpawnEnemy() {
+    /*
     Player* player = m_scene->GetActorByName<Player>("player");
     if (player) {
         //std::shared_ptr<viper::Model> enemyModel = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 1, 0, 0 });
@@ -164,8 +172,8 @@ void SpaceGame::SpawnEnemy() {
         enemy->AddComponent(std::move(collider));
 
         m_scene->AddActor(std::move(enemy));
-
     }
+    */
 
 }
 

@@ -8,8 +8,9 @@ FACTORY_REGISTER(Player)
 
 void Player::Update(float dt)
 {
+    
     viper::Particle particle;
-    particle.position = transform.position;
+    particle.position = owner->transform.position;
     particle.velocity = viper::vec2{ viper::random::getReal(-200.0f, 200.0f), viper::random::getReal(-200.0f, 200.0f) };
     particle.color = viper::vec3{ 1, 1, 1 };
     particle.lifespan = 2;
@@ -20,7 +21,7 @@ void Player::Update(float dt)
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +1;
 
-    transform.rotation += (rotate * rotationRate) * dt;
+    owner->transform.rotation += (rotate * rotationRate) * dt;
 
     // thrust
     float thrust = 0;
@@ -28,17 +29,17 @@ void Player::Update(float dt)
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_S)) thrust = -1;
 
     viper::vec2 direction{ 1, 0 };
-    viper::vec2 force = direction.Rotate(viper::math::degToRad(transform.rotation)) * thrust * speed;
+    viper::vec2 force = direction.Rotate(viper::math::degToRad(owner->transform.rotation)) * thrust * speed;
     //velocity += force * dt;
-    auto* rb = GetComponent<viper::RigidBody>();
+    auto* rb = owner->GetComponent<viper::RigidBody>();
     if (rb) {
         rb->velocity += force * dt;
     }
 
-
-    transform.position.x = viper::math::wrap(transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
-    transform.position.y = viper::math::wrap(transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetHeight());
-
+    owner->transform.position.x = viper::math::wrap(owner->transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
+    owner->transform.position.y = viper::math::wrap(owner->transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetHeight());
+    
+    /*
     // check fire key pressed
     fireTimer -= dt;
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
@@ -74,13 +75,14 @@ void Player::Update(float dt)
     }
 
     Actor::Update(dt);
+    */
 }
 
-void Player::OnCollision(Actor* other)
+void Player::OnCollision(viper::Actor* other)
 {
-    if (tag != other->tag) {
-        destroyed = true;
-        dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
+    if (owner->tag != other->tag) {
+        owner->destroyed = true;
+        dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
     }
 }
 

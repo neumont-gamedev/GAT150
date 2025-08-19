@@ -1,3 +1,4 @@
+#include "../GamePCH.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "Rocket.h"
@@ -7,6 +8,7 @@ FACTORY_REGISTER(Enemy)
 
 void Enemy::Update(float dt)
 {
+    /*
     bool playerSeen = false;
 
     Actor* player = owner->scene->GetActorByName<Actor>("player");
@@ -69,16 +71,17 @@ void Enemy::Update(float dt)
     }
 
     Actor::Update(dt);
+    */
 }
 
-void Enemy::OnCollision(Actor* other)
+void Enemy::OnCollision(viper::Actor* other)
 {
-    if (tag != other->tag) {
-        destroyed = true;
-        scene->GetGame()->AddPoints(100);
+    if (owner->tag != other->tag) {
+        owner->destroyed = true;
+        owner->scene->GetGame()->AddPoints(100);
         for (int i = 0; i < 100; i++) {
             viper::Particle particle;
-            particle.position = transform.position;
+            particle.position = owner->transform.position;
             particle.velocity = viper::random::onUnitCircle() * viper::random::getReal(10.0f, 200.0f);
             particle.color = viper::vec3{ 1, 1, 1 };
             particle.lifespan = 2;
