@@ -35,11 +35,11 @@ namespace viper {
 	class Factory : public Singleton<Factory> {
 	public:
 		template<typename T>
-			requires std::derived_from<T, Object>
+		requires std::derived_from<T, Object>
 		void Register(const std::string& name);
 
 		template<typename T = Object>
-			requires std::derived_from<T, Object>
+		requires std::derived_from<T, Object>
 		std::unique_ptr<T> Create(const std::string& name);
 
 	private:

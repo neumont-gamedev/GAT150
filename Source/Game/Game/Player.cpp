@@ -8,13 +8,12 @@ FACTORY_REGISTER(Player)
 
 void Player::Update(float dt)
 {
-    
     viper::Particle particle;
     particle.position = owner->transform.position;
     particle.velocity = viper::vec2{ viper::random::getReal(-200.0f, 200.0f), viper::random::getReal(-200.0f, 200.0f) };
     particle.color = viper::vec3{ 1, 1, 1 };
     particle.lifespan = 2;
-    //viper::GetEngine().GetPS().AddParticle(particle);
+    viper::GetEngine().GetPS().AddParticle(particle);
 
     // rotation
     float rotate = 0;
@@ -30,7 +29,6 @@ void Player::Update(float dt)
 
     viper::vec2 direction{ 1, 0 };
     viper::vec2 force = direction.Rotate(viper::math::degToRad(owner->transform.rotation)) * thrust * speed;
-    //velocity += force * dt;
     auto* rb = owner->GetComponent<viper::RigidBody>();
     if (rb) {
         rb->velocity += force * dt;
@@ -78,11 +76,18 @@ void Player::Update(float dt)
     */
 }
 
-void Player::OnCollision(viper::Actor* other)
-{
+void Player::OnCollision(viper::Actor* other) {
     if (owner->tag != other->tag) {
         owner->destroyed = true;
         dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
     }
+}
+
+void Player::Read(const viper::json::value_t& value) {
+    Object::Read(value);
+
+    JSON_READ(value, speed);
+    JSON_READ(value, rotationRate);
+    JSON_READ(value, fireTime);
 }
 

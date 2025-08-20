@@ -3,11 +3,13 @@
 		{
 			"name": "sprite",
 			"tag": "background",
-			"lifespan": 4,
 			"transform": {
-				"position": [ 400, 300 ],
-				"rotation": 30,
-				"scale": 2
+				"position": [
+					640,
+					512
+				],
+				"rotation": 0,
+				"scale": 1
 			},
 			"components": [
 				{
@@ -17,10 +19,40 @@
 			]
 		},
 		{
-
+			"name": "player",
+			"tag": "player",
+			"transform": {
+				"position": [
+					640,
+					512
+				],
+				"rotation": 0,
+				"scale": 2
+			},
+			"components": [
+				{
+					"type": "Player",
+					"speed": 1500.0,
+					"rotationRate": 180,
+					"fireTime": 0.2
+				},
+				{
+					"type": "SpriteRenderer",
+					"texture_name": "textures/blue_01.png"
+				},
+				{
+					"type": "RigidBody",
+					"damping": 1.5,
+					"velocity": [
+						0,
+						0
+					]
+				},
+				{
+					"type": "CircleCollider2D",
+					"radius": 60
+				}
+			]
 		}
 	]
-
-
-
 }

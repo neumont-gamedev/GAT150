@@ -11,11 +11,11 @@ namespace viper {
 	class Actor : public Object {
 	public:
 		std::string tag;
-
-		bool destroyed{ false };
 		float lifespan{ 0 };
 
 		Transform transform;
+
+		bool destroyed{ false };
 		class Scene* scene{ nullptr };
 
 	public:
