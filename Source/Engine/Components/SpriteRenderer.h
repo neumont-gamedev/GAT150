@@ -7,6 +7,8 @@ namespace viper {
 		std::string textureName;
 
 	public:
+		CLASS_PROTOTYPE(SpriteRenderer)
+
 		void Update(float dt) override;
 		void Draw(Renderer& renderer) override;
 
