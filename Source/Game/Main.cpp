@@ -1,6 +1,51 @@
 #include "Game/SpaceGame.h"
 
+class A {
+public:
+    A() = default;
+    A(int size) : size{ size } 
+    {
+        buffer = new int[size];
+        for (int i = 0; i < size; i++) buffer[i] = i;
+    }
+    A(const A& other) : 
+        size{ other.size }
+    {
+        buffer = new int[other.size];
+        for (int i = 0; i < size; i++) buffer[i] = i;
+    }
+    A& operator = (const A& other) 
+    { 
+        size = other.size;
+        buffer = other.buffer;
+        return *this;
+    }
+    ~A() = default;
+        
+public:
+    int size{ 0 };
+    int* buffer{ nullptr };
+};
+
+
 int main(int argc, char* argv[]) {
+    /*
+    A a1{ 4 };
+    std::cout << a1.size << std::endl;
+    std::cout << a1.buffer[2] << std::endl;
+
+    A a2{ a1 }; // copy constructor
+
+    a1.buffer[2] = 45;
+
+    std::cout << a2.size << std::endl;
+    std::cout << a2.buffer[2] << std::endl;
+
+    A a3;
+    a3 = a1; // assignment operator
+    std::cout << a3.size << std::endl;
+    */
+
     viper::file::SetCurrentDirectory("Assets");
     viper::Logger::Info("current directory {}", viper::file::GetCurrentDirectory());
 
@@ -11,13 +56,6 @@ int main(int argc, char* argv[]) {
     // initialize game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
     game->Initialize();
-
-    // initialize sounds
-    viper::GetEngine().GetAudio().AddSound("bass.wav", "bass");
-    viper::GetEngine().GetAudio().AddSound("snare.wav", "snare");
-    viper::GetEngine().GetAudio().AddSound("clap.wav", "clap");
-    viper::GetEngine().GetAudio().AddSound("close-hat.wav", "close-hat");
-    viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 
     SDL_Event e;
     bool quit = false;
@@ -30,6 +68,7 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        // update
         viper::GetEngine().Update();
         game->Update(viper::GetEngine().GetTime().GetDeltaTime());
 
