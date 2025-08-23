@@ -7,11 +7,18 @@ FACTORY_REGISTER(Player)
 
 void Player::Update(float dt)
 {
+    // particle system "flames"
+    float angle = owner->transform.rotation + viper::random::getReal(-30.0f, 30.0f);
+    viper::vec2 velocity = viper::vec2{ -1, 0 }.Rotate(viper::math::degToRad(angle));
+    velocity *= viper::random::getReal(80.0f, 150.0f);
+
     viper::Particle particle;
-    particle.position = owner->transform.position;
-    particle.velocity = viper::vec2{ viper::random::getReal(-200.0f, 200.0f), viper::random::getReal(-200.0f, 200.0f) };
-    particle.color = viper::vec3{ 1, 1, 1 };
-    particle.lifespan = 2;
+    viper::vec2 offset = viper::vec2{ -40, 0 }.Rotate(viper::math::degToRad(owner->transform.rotation));
+    particle.position = owner->transform.position + offset;
+    particle.velocity = velocity;
+    particle.color = viper::vec3{ 1, 1, 0 };
+    particle.lifespan = viper::random::getReal(0.5f, 1.0f);
+    
     viper::GetEngine().GetPS().AddParticle(particle);
 
     // rotation
