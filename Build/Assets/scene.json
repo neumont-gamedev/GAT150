@@ -50,9 +50,9 @@
 			"components": [
 				{
 					"type": "Enemy",
-					"speed": 1500.0,
+					"speed": 500.0,
 					"rotationRate": 180,
-					"fireTime": 0.2
+					"fireTime": 1.0
 				},
 				{
 					"type": "SpriteRenderer",
@@ -71,8 +71,42 @@
 					"radius": 60
 				}
 			]
+		},
+		{
+			"name": "rocket",
+			"tag": "rocket",
+			"lifespan": 1.5, 
+			"transform": {
+				"position": [
+					0,
+					0
+				],
+				"rotation": 0,
+				"scale": 2
+			},
+			"components": [
+				{
+					"type": "Rocket",
+					"speed": 1500
+				},
+				{
+					"type": "SpriteRenderer",
+					"texture_name": "textures/missile-2.png"
+				},
+				{
+					"type": "RigidBody",
+					"damping": 0,
+					"velocity": [
+						0,
+						0
+					]
+				},
+				{
+					"type": "CircleCollider2D",
+					"radius": 10
+				}
+			]
 		}
-
 	],
 	"actors": [
 		{

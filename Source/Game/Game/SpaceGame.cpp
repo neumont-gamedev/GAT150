@@ -2,7 +2,6 @@
 #include "SpaceGame.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "GameData.h"
 
 bool SpaceGame::Initialize()
 {
@@ -43,7 +42,7 @@ void SpaceGame::Update(float dt)
     {
         m_scene->RemoveAllActors();
 
-        auto player = viper::Factory::Instance().Create<viper::Actor>("player");
+        auto player = viper::Instantiate("player");
         m_scene->AddActor(std::move(player));
 
         m_gameState = GameState::Game;
@@ -52,7 +51,7 @@ void SpaceGame::Update(float dt)
     case SpaceGame::GameState::Game:
         m_enemySpawnTimer -= dt;
         if (m_enemySpawnTimer <= 0) {
-            m_enemySpawnTimer = 2;
+            m_enemySpawnTimer = 5;
             SpawnEnemy();
         }
 

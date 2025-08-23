@@ -25,9 +25,6 @@
     <ClCompile Include="Game\Enemy.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameData.cpp">
-      <Filter>Source\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Player.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
@@ -46,9 +43,6 @@
       <Filter>Source\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Enemy.h">
-      <Filter>Source\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameData.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
     <ClInclude Include="GamePCH.h">

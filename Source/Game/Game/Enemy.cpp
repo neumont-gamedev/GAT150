@@ -2,16 +2,14 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Rocket.h"
-#include "GameData.h"
 
 FACTORY_REGISTER(Enemy)
 
 void Enemy::Update(float dt)
 {
-    /*
+    // check if player seen (player in scene && < angle)
     bool playerSeen = false;
-
-    Actor* player = owner->scene->GetActorByName<Actor>("player");
+    auto player = owner->scene->GetActorByName<viper::Actor>("player");
     if (player) {
         viper::vec2 direction{ 0, 0 };
         direction = player->transform.position - owner->transform.position;
@@ -22,6 +20,7 @@ void Enemy::Update(float dt)
         float angle = viper::math::radToDeg(viper::vec2::AngleBetween(forward, direction));
         playerSeen = angle <= 30;
 
+        // rotates toward player if seen
         if (playerSeen) {
             float angle = viper::vec2::SignedAngleBetween(forward, direction);
             angle = viper::math::sign(angle);
@@ -29,11 +28,9 @@ void Enemy::Update(float dt)
         }
     }
 
+    // move enemy
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(owner->transform.rotation)) * speed;
-    //velocity += force * dt;
-    //GetComponent<viper::RigidBody>()->velocity += force * dt;
-
-    auto* rb = owner->GetComponent<viper::RigidBody>();
+    auto rb = owner->GetComponent<viper::RigidBody>();
     if (rb) {
         rb->velocity += force * dt;
     }
@@ -46,32 +43,14 @@ void Enemy::Update(float dt)
     if (fireTimer <= 0 && playerSeen) {
         fireTimer = fireTime;
 
-        //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0.0f, 1.0f, 0.0f });
-        // spawn rocket at player position and rotation
+        // spawn rocket at actor position and rotation
         viper::Transform transform{ owner->transform.position, owner->transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Actor>(transform);// , viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
-        rocket->speed = 500.0f;
-        rocket->lifespan = 1.5f;
-        rocket->name = "rocket";
+        auto rocket = viper::Instantiate("rocket", transform);
+        // set rocket tag as enemy
         rocket->tag = "enemy";
 
-        // components
-        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/missile-2.png";
-        rocket->AddComponent(std::move(spriteRenderer));
-
-        auto rb = std::make_unique<viper::RigidBody>();
-        rocket->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<viper::CircleCollider2D>();
-        collider->radius = 10;
-        rocket->AddComponent(std::move(collider));
-
-        scene->AddActor(std::move(rocket));
+        owner->scene->AddActor(std::move(rocket));
     }
-
-    Actor::Update(dt);
-    */
 }
 
 void Enemy::OnCollision(viper::Actor* other)
@@ -79,6 +58,7 @@ void Enemy::OnCollision(viper::Actor* other)
     if (owner->tag != other->tag) {
         owner->destroyed = true;
         owner->scene->GetGame()->AddPoints(100);
+        // particle system explosion
         for (int i = 0; i < 100; i++) {
             viper::Particle particle;
             particle.position = owner->transform.position;
@@ -89,4 +69,11 @@ void Enemy::OnCollision(viper::Actor* other)
             viper::GetEngine().GetPS().AddParticle(particle);
         }
     }
+}
+
+void Enemy::Read(const viper::json::value_t& value) {
+    Object::Read(value);
+
+    JSON_READ(value, speed);
+    JSON_READ(value, fireTime);
 }
