@@ -30,10 +30,12 @@ namespace viper {
 
 		void Read(const json::value_t& value) override;
 
+		virtual void Start();
+		virtual void Destroyed();
 		virtual void Update(float dt);
 		virtual void Draw(class Renderer& renderer);
 
-		virtual void OnCollision(Actor* other) {}
+		virtual void OnCollision(Actor* other);
 
 		// components
 		void AddComponent(std::unique_ptr<Component> component);

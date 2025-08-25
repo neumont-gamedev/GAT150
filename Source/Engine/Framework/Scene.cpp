@@ -16,14 +16,18 @@ namespace viper {
 		}
 
 		// remove destroyed actors
-		for (auto iter = m_actors.begin(); iter != m_actors.end(); ) {
-			if ((*iter)->destroyed) {
-				iter = m_actors.erase(iter);
-			}
-			else {
-				iter++;
-			}
-		}
+		std::erase_if(m_actors, [](auto& actor) {
+			return (actor->destroyed);
+		});
+
+		//for (auto iter = m_actors.begin(); iter != m_actors.end(); ) {
+		//	if ((*iter)->destroyed) {
+		//		iter = m_actors.erase(iter);
+		//	}
+		//	else {
+		//		iter++;
+		//	}
+		//}
 
 		// check for collisions
 		for (auto& actorA : m_actors) {
@@ -61,8 +65,9 @@ namespace viper {
 	/// Adds an actor to the scene by transferring ownership of the actor.
 	/// </summary>
 	/// <param name="actor">A unique pointer to the actor to be added. Ownership of the actor is transferred to the scene.</param>
-	void Scene::AddActor(std::unique_ptr<Actor> actor) {
+	void Scene::AddActor(std::unique_ptr<Actor> actor, bool start) {
 		actor->scene = this;
+		if (start) actor->Start();
 		m_actors.push_back(std::move(actor));
 	}
 
@@ -75,6 +80,25 @@ namespace viper {
 				iter++;
 			}
 		}
+	}
+
+	bool Scene::Load(const std::string& sceneName) {
+		// load json
+		viper::json::document_t document;
+		if (!viper::json::Load(sceneName, document)) {
+			Logger::Error("Could not load scene {}", sceneName);
+			return false;
+		}
+		
+		// create scene
+		Read(document);
+
+		// start actors
+		for (auto& actor : m_actors) {
+			actor->Start();
+		}
+
+		return true;
 	}
 
 	void Scene::Read(const json::value_t& value) {
@@ -97,7 +121,7 @@ namespace viper {
 				auto actor = Factory::Instance().Create<Actor>("Actor");
 				actor->Read(actorValue);
 
-				AddActor(std::move(actor));
+				AddActor(std::move(actor), false);
 			}
 		}
 	}

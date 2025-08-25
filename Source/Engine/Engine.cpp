@@ -17,6 +17,9 @@ namespace viper {
 		m_audio = std::make_unique<viper::AudioSystem>();
 		m_audio->Initialize();
 
+		m_physics = std::make_unique<viper::Physics>();
+		m_physics->Initialize();
+
 		m_particleSystem = std::make_unique<viper::ParticleSystem>();
 		m_particleSystem->Initialize(5000);
 
@@ -26,9 +29,11 @@ namespace viper {
 	void Engine::Shutdown() {
 		// release resources from resource manager
 		Resources().Clear();
+		//Factory::Instance().Clear();
 
 		// shutdown engine systems
 		m_particleSystem->Shutdown();
+		m_physics->Shutdown();
 		m_audio->Shutdown();
 		m_input->Shutdown();
 		m_renderer->Shutdown();
@@ -38,6 +43,7 @@ namespace viper {
 		m_time.Tick();
 		m_input->Update();
 		m_audio->Update();
+		m_physics->Update(m_time.GetDeltaTime());
 		m_particleSystem->Update(m_time.GetDeltaTime());
 	}
 

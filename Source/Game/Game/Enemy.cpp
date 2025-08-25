@@ -5,8 +5,12 @@
 
 FACTORY_REGISTER(Enemy)
 
-void Enemy::Update(float dt)
-{
+void Enemy::Start() {
+    m_rigidBody = owner->GetComponent<viper::RigidBody>();
+    fireTimer = fireTime;
+}
+
+void Enemy::Update(float dt) {
     // check if player seen (player in scene && < angle)
     bool playerSeen = false;
     auto player = owner->scene->GetActorByName<viper::Actor>("player");
@@ -30,9 +34,8 @@ void Enemy::Update(float dt)
 
     // move enemy
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(owner->transform.rotation)) * speed;
-    auto rb = owner->GetComponent<viper::RigidBody>();
-    if (rb) {
-        rb->velocity += force * dt;
+    if (m_rigidBody) {
+        m_rigidBody->velocity += force * dt;
     }
 
     owner->transform.position.x = viper::math::wrap(owner->transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());

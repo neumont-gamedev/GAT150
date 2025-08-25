@@ -19,6 +19,18 @@ namespace viper {
 
 	}
 
+	void Actor::Start() {
+		for (auto& component : m_components) {
+			component->Start();
+		}
+	}
+
+	void Actor::Destroyed() {
+		for (auto& component : m_components) {
+			component->Destroyed();
+		}
+	}
+
 	void Actor::Update(float dt)
 	{
 		if (destroyed) return;
@@ -48,6 +60,13 @@ namespace viper {
 					rendererComponent->Draw(renderer);
 				}
 			}
+		}
+	}
+
+	void Actor::OnCollision(Actor* other) {
+		auto collidables = GetComponents<ICollidable>();
+		for (auto& collidable : collidables) {
+			collidable->OnCollision(other);
 		}
 	}
 

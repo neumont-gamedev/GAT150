@@ -6,10 +6,7 @@
 bool SpaceGame::Initialize()
 {
     m_scene = std::make_unique<viper::Scene>(this);
-
-    viper::json::document_t document;
-    viper::json::Load("scene.json", document);
-    m_scene->Read(document);
+    m_scene->Load("scene.json");
 
     m_titleText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("title_font", "arcadeclassic.ttf", 128.0f));
     m_scoreText = std::make_unique<viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_font", "arcadeclassic.ttf", 48.0f));

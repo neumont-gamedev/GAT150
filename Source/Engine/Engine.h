@@ -5,6 +5,7 @@
 #include "Renderer/ParticleSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
+#include "Physics/Physics.h"
 #include "Resources/ResourceManager.h"
 
 #include <memory>
@@ -21,7 +22,8 @@ namespace viper {
 		Renderer& GetRenderer() { return *m_renderer; }
 		AudioSystem& GetAudio() { return *m_audio; }
 		InputSystem& GetInput() { return *m_input; }
-		ParticleSystem& GetPS() { return *m_particleSystem;  }
+		ParticleSystem& GetPS() { return *m_particleSystem; }
+		Physics& GetPhysics()   { return *m_physics; }
 
 		Time& GetTime() { return m_time; }
 
@@ -36,6 +38,7 @@ namespace viper {
 		std::unique_ptr<AudioSystem> m_audio;
 		std::unique_ptr<InputSystem> m_input;
 		std::unique_ptr<ParticleSystem> m_particleSystem;
+		std::unique_ptr<Physics> m_physics;
 	};
 
 	inline Engine& GetEngine() { return Engine::Instance(); }

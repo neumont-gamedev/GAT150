@@ -5,10 +5,12 @@ namespace viper {
 	class SpriteRenderer : public RendererComponent {
 	public:
 		std::string textureName;
+		res_t<Texture> texture;
 
 	public:
 		CLASS_PROTOTYPE(SpriteRenderer)
 
+		void Start() override;
 		void Update(float dt) override;
 		void Draw(Renderer& renderer) override;
 
