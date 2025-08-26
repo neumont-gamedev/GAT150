@@ -1,7 +1,7 @@
 #pragma once
 #include "Framework/Component.h"
 
-class Enemy : public viper::Component, public viper::ICollidable {
+class Enemy : public viper::Component, public viper::ICollidable, public viper::IObserver {
 public:
 	float speed = 200;
 	float fireTimer = 0;
@@ -16,6 +16,8 @@ public:
 	void Start() override;
 	void Update(float dt) override;
 	void OnCollision(class viper::Actor* other) override;
+
+	void OnNotify(const viper::Event& event) override;
 
 	void Read(const viper::json::value_t& value) override;
 };

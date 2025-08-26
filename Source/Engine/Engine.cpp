@@ -28,8 +28,9 @@ namespace viper {
 
 	void Engine::Shutdown() {
 		// release resources from resource manager
-		Resources().Clear();
-		//Factory::Instance().Clear();
+		Resources().RemoveAll();
+		Factory::Instance().RemoveAll();
+		EventManager::Instance().RemoveAll();
 
 		// shutdown engine systems
 		m_particleSystem->Shutdown();
