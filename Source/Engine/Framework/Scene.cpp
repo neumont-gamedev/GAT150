@@ -20,18 +20,12 @@ namespace viper {
 			return (actor->destroyed);
 		});
 
-		//for (auto iter = m_actors.begin(); iter != m_actors.end(); ) {
-		//	if ((*iter)->destroyed) {
-		//		iter = m_actors.erase(iter);
-		//	}
-		//	else {
-		//		iter++;
-		//	}
-		//}
-
 		// check for collisions
 		for (auto& actorA : m_actors) {
 			for (auto& actorB : m_actors) {
+
+				continue;
+
 				if (actorA == actorB || (actorA->destroyed || actorB->destroyed)) continue;
 
 				auto colliderA = actorA->GetComponent<ColliderComponent>();

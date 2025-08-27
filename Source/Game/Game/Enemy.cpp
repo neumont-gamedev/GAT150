@@ -30,15 +30,15 @@ void Enemy::Update(float dt) {
         if (playerSeen) {
             float angle = viper::vec2::SignedAngleBetween(forward, direction);
             angle = viper::math::sign(angle);
-            owner->transform.rotation += viper::math::radToDeg(angle * 5 * dt);
+            m_rigidBody->ApplyTorque(angle * 5);
+
+            //owner->transform.rotation += viper::math::radToDeg(angle * 5 * dt);
         }
     }
 
     // move enemy
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(owner->transform.rotation)) * speed;
-    if (m_rigidBody) {
-        m_rigidBody->velocity += force * dt;
-    }
+    m_rigidBody->ApplyForce(force);
 
     owner->transform.position.x = viper::math::wrap(owner->transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
     owner->transform.position.y = viper::math::wrap(owner->transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetHeight());

@@ -15,7 +15,7 @@
 				{
 					"type": "Player",
 					"speed": 1500.0,
-					"rotationRate": 180,
+					"rotationRate": 30,
 					"fireTime": 0.2
 				},
 				{
@@ -24,11 +24,8 @@
 				},
 				{
 					"type": "RigidBody",
-					"damping": 1.5,
-					"velocity": [
-						0,
-						0
-					]
+					"gravityScale": 0.0,
+					"angularDamping": 2.0
 				},
 				{
 					"type": "CircleCollider2D",
@@ -50,7 +47,7 @@
 			"components": [
 				{
 					"type": "Enemy",
-					"speed": 500.0,
+					"speed": 0.0,
 					"rotationRate": 180,
 					"fireTime": 2.0
 				},
@@ -60,11 +57,7 @@
 				},
 				{
 					"type": "RigidBody",
-					"damping": 1.5,
-					"velocity": [
-						0,
-						0
-					]
+					"gravityScale": 0
 				},
 				{
 					"type": "CircleCollider2D",
@@ -87,7 +80,7 @@
 			"components": [
 				{
 					"type": "Rocket",
-					"speed": 1500
+					"speed": 150
 				},
 				{
 					"type": "SpriteRenderer",
@@ -95,11 +88,8 @@
 				},
 				{
 					"type": "RigidBody",
-					"damping": 0,
-					"velocity": [
-						0,
-						0
-					]
+					"gravityScale": 0,
+					"isSensor": true
 				},
 				{
 					"type": "CircleCollider2D",

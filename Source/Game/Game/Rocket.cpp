@@ -10,7 +10,7 @@ void Rocket::Update(float dt) {
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(owner->transform.rotation)) * speed;
     auto rb = owner->GetComponent<viper::RigidBody>();
     if (rb) {
-        rb->velocity = force;
+        rb->SetVelocity(force);
     }
 
     owner->transform.position.x = viper::math::wrap(owner->transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
