@@ -23,15 +23,13 @@ namespace viper {
 			}
 		}
 
+		size *= scale;
 		m_physicsBody = std::make_unique<PhysicsBody>(owner->transform, size, bodyDef, GetEngine().GetPhysics());
 	}
 
 	void RigidBody::Update(float dt) {
 		owner->transform.position = m_physicsBody->GetPosition();
 		owner->transform.rotation = math::radToDeg(m_physicsBody->GetAngle());
-
-		//owner->transform.position += velocity * dt;
-		//velocity *= (1.0f / (1.0f + damping * dt));
 	}
 
 	void RigidBody::ApplyForce(const vec2& force) {
@@ -50,7 +48,7 @@ namespace viper {
 		Object::Read(value);
 
 		JSON_READ(value, size);
-		//JSON_READ(value, scale);
+		JSON_READ(value, scale);
 
 		JSON_READ_NAME(value, "gravityScale", bodyDef.gravityScale);
 		JSON_READ_NAME(value, "linearDamping", bodyDef.linearDamping);
