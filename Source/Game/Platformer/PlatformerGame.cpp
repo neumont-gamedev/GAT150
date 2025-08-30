@@ -57,7 +57,7 @@ void PlatformerGame::OnNotify(const viper::Event& event) {
 }
 
 void PlatformerGame::SpawnEnemy() {
-	auto player = viper::Instantiate("platformenemy");
+	auto player = viper::Instantiate("bat");
 	//player->transform.position = viper::vec2{ viper::random::getReal(0.0f, 1080.0f), viper::random::getReal(0.0f, 100.0f) };
 	m_scene->AddActor(std::move(player));
 }

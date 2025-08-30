@@ -10,6 +10,7 @@ void Player::Start() {
 
 void Player::Update(float dt)
 {
+    owner->GetComponent<viper::Animator>()->Play("attack");
     // particle system "flames"
     float angle = owner->transform.rotation + viper::random::getReal(-30.0f, 30.0f);
     viper::vec2 velocity = viper::vec2{ -1, 0 }.Rotate(viper::math::degToRad(angle));
