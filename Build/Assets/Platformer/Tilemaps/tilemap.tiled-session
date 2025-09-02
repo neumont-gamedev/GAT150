@@ -1,0 +1,49 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "tilemap.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "tilemap.tmx": {
+            "scale": 2.4541666666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 239.7962648556876,
+                "y": 159.9320882852292
+            }
+        },
+        "tilemap.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tileset.tsx": {
+            "scaleInDock": 1.2441,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/rmaple/OneDrive - Neumont College of Computer Science/Dev/GAT150/GAT150/Build/Assets/Platformer/Tilemaps",
+    "last.imagePath": "C:/Users/rmaple/OneDrive - Neumont College of Computer Science/Dev/GAT150/GAT150/Build/Assets/Platformer/Textures",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "tileset.tsx",
+        "tilemap.tmx"
+    ],
+    "project": "tilemap.tiled-project",
+    "recentFiles": [
+        "tileset.tsx",
+        "tilemap.tmx",
+        "tilemap.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

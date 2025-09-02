@@ -221,6 +221,7 @@
     <None Include="..\..\Build\Assets\Meshes\enemy.msh" />
     <None Include="..\..\Build\Assets\Platformer\Scenes\level.json" />
     <None Include="..\..\Build\Assets\Platformer\Scenes\prototypes.json" />
+    <None Include="..\..\Build\Assets\Platformer\Tilemaps\tilemap.json" />
     <None Include="..\..\Build\Assets\scene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
