@@ -9,9 +9,10 @@ namespace viper {
 		bodyDef = other.bodyDef;
 		size = other.size;
 
-		if (other.m_physicsBody) {
-			m_physicsBody = std::make_unique<PhysicsBody>(*other.m_physicsBody);
-		}
+		//if (other.m_physicsBody) {
+		//
+		//	m_physicsBody = std::make_unique<PhysicsBody>(*other.m_physicsBody);
+		//}
 	}
 
 	void RigidBody::Start()	{
@@ -30,6 +31,7 @@ namespace viper {
 	void RigidBody::Update(float dt) {
 		owner->transform.position = m_physicsBody->GetPosition();
 		owner->transform.rotation = math::radToDeg(m_physicsBody->GetAngle());
+		velocity = m_physicsBody->GetVelocity();
 	}
 
 	void RigidBody::ApplyForce(const vec2& force) {

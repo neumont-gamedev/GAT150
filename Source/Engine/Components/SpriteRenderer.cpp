@@ -25,13 +25,15 @@ namespace viper {
 					owner->transform.position.x,
 					owner->transform.position.y,
 					owner->transform.rotation,
-					owner->transform.scale);
+					owner->transform.scale,
+					flipH);
 			} else {
 				renderer.DrawTexture(*texture,
 					owner->transform.position.x,
 					owner->transform.position.y,
 					owner->transform.rotation,
-					owner->transform.scale);
+					owner->transform.scale,
+					flipH);
 			}
 		}
 	}
@@ -40,5 +42,6 @@ namespace viper {
 		Object::Read(value);
 
 		JSON_READ_NAME(value, "texture_name", textureName);
+		JSON_READ(value, flipH);
 	}
 }

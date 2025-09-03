@@ -9,11 +9,11 @@
     ],
     "fileStates": {
         "tilemap.tmx": {
-            "scale": 2.4541666666666666,
+            "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 239.7962648556876,
-                "y": 159.9320882852292
+                "x": 552.6666666666667,
+                "y": 317
             }
         },
         "tilemap.tsx": {
@@ -36,6 +36,7 @@
         "tilemap.tmx"
     ],
     "project": "tilemap.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "tileset.tsx",
         "tilemap.tmx",
