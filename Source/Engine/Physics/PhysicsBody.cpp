@@ -1,4 +1,5 @@
 #include "PhysicsBody.h"
+#include "Engine.h"
 
 namespace viper {
 	PhysicsBody::PhysicsBody(const Transform& transform, const vec2& size, const PhysicsBodyDef& def, const Physics& physics) {
@@ -12,6 +13,7 @@ namespace viper {
 		bodyDef.gravityScale = def.gravityScale;
 		bodyDef.linearDamping = def.linearDamping;
 		bodyDef.angularDamping = def.angularDamping;
+		bodyDef.enableSleep = false;
 		bodyDef.userData = def.actor;
 
 		// create body
@@ -24,10 +26,13 @@ namespace viper {
 		shapeDef.density = def.density;
 		shapeDef.isSensor = def.isSensor;
 
-		if (def.isSensor) {
-			shapeDef.enableSensorEvents = true;
-		}
-		else shapeDef.enableContactEvents = true;
+		shapeDef.enableSensorEvents = true;
+		shapeDef.enableContactEvents = true;
+
+		//if (def.isSensor) {
+		//	shapeDef.enableSensorEvents = true;
+		//}
+		//else shapeDef.enableContactEvents = true;
 
 		// create shape
 		b2Vec2 hsize = to_b2(Physics::PixelToWorld(size * transform.scale * 0.5f));
@@ -58,7 +63,6 @@ namespace viper {
 
 	PhysicsBody::~PhysicsBody() {
 		b2DestroyBody(m_bodyId);
-		m_bodyId = b2_nullBodyId;
 	}
 
 	vec2 PhysicsBody::GetPosition()	{
